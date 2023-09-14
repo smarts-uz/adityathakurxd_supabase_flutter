@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseManager {
@@ -7,13 +8,18 @@ class SupabaseManager {
     await supabase.auth.signUp(password: password, email: email);
   }
 
+  deleteData(int id) async {
+    await Supabase.instance.client.from('notes').delete().match({'id': id});
+  }
+
   getData() async {
-    var response = await supabase.from('notes').select();
-    if (response.error == null) {
-      print('response.data: ${response.data}');
+    try {
+      var response = await supabase.from('notes').select();
+      print('notest $response');
+      return response;
+    } catch (e) {
+      print('Error  $e');
     }
-    return response;
-    print('Read data: $response');
   }
 
   addData(String title, String desc) async {
