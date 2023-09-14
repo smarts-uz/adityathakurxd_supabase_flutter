@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/homepage.dart';
-import 'package:supabase_flutter/supabase_manager.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:test/homepage.dart';
+import 'package:test/supabase_manager.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
   SupabaseManager supabaseManager = SupabaseManager();
@@ -12,17 +14,15 @@ class LoginScreen extends StatelessWidget {
             padding: EdgeInsets.all(50),
             child: Align(
                 alignment: Alignment.center,
-                child: FlatButton(
-                    color: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    onPressed: ()  async {
-                      await supabaseManager.signUpUser('adityathakurxd@gmail.com', 'qwerty1234');
+                child: ElevatedButton(
+
+                    onPressed: () async {
+                       Supabase.instance.client.auth.signUp(
+                          password: '12345678', email: 'supabase@test.com');
                       print('Signed Up');
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                      await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
                     },
-                    child: Padding(
+                    child: const Padding(
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

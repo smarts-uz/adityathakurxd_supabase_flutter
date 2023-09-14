@@ -1,24 +1,24 @@
-import 'package:supabase/supabase.dart';
-
-const supabaseUrl = '<Replace with your URL>';
-const supabaseKey =
-    '<Replace with your Key>';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseManager {
-  final client = SupabaseClient(supabaseUrl, supabaseKey);
+  final supabase = Supabase.instance.client;
 
   void signUpUser(String email, String password) async {
-    await client.auth.signUp(email, password);
+    await supabase.auth.signUp(password: password, email: email);
   }
 
   getData() async {
-    var response = await client.from('datatable').select().execute();
+    var response = await supabase.from('notes').select();
     if (response.error == null) {
       print('response.data: ${response.data}');
     }
+    return response;
+    print('Read data: $response');
   }
 
-  addData(String friendName) async {
-    await client.from('datatable').insert([{'name': friendName}]).execute();
+  addData(String title, String desc) async {
+    await supabase.from('notes').insert([
+      {'title': title, 'description': desc}
+    ]);
   }
 }

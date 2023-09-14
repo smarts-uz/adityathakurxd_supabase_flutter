@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_manager.dart';
+import 'package:test/supabase_manager.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   SupabaseManager supabaseManager = SupabaseManager();
 
    @override
@@ -15,19 +23,19 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
                  await supabaseManager.getData();
                  print('Got Data');
                 },
-                child: Text('Read Data'),
+                child:const Text('Read Data'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () async {
-                  await supabaseManager.addData('friendName');
+                  await supabaseManager.addData('newFlutter', 'newSupabase');
                   print('added data');
                 },
-                child: Text('Add Data'),
+                child:const Text('Add Data'),
               )
             ],
           ),
