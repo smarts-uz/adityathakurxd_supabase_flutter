@@ -22,9 +22,19 @@ class SupabaseManager {
     }
   }
 
-  addData(String title, String desc) async {
-    await supabase.from('notes').insert([
-      {'title': title, 'description': desc}
-    ]);
+  addData(String task, bool status, context) async {
+    try {
+      await Supabase.instance.client
+          .from('notes')
+          .upsert({'title': task, 'status': status});
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Saved the Task'),
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Error saving task'),
+        backgroundColor: Colors.red,
+      ));
+    }
   }
 }

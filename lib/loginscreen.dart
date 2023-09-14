@@ -15,12 +15,12 @@ class LoginScreen extends StatelessWidget {
             child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-
                     onPressed: () async {
-                       Supabase.instance.client.auth.signUp(
+                      Supabase.instance.client.auth.signUp(
                           password: '12345678', email: 'supabase@test.com');
                       print('Signed Up');
-                      await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
+                      await Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (ctx) => HomePage()));
                     },
                     child: const Padding(
                         padding: EdgeInsets.all(10),
@@ -30,15 +30,9 @@ class LoginScreen extends StatelessWidget {
                           children: <Widget>[
                             Icon(Icons.account_circle, color: Colors.white),
                             SizedBox(width: 10),
-                            Text(
-                                'Sign into to Supabase',
+                            Text('Sign into to Supabase',
                                 style: TextStyle(color: Colors.white))
                           ],
-                        )
-                    )
-                )
-            )
-        )
-    );
+                        ))))));
   }
 }
